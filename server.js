@@ -23,6 +23,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/auth', authRoutes);
+app.use((req, res, next) => res.statusCode === 500 ? res.send(res.statusMessage) : next());
 
 app.listen(
     process.env.PORT || 5000, 
