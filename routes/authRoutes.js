@@ -14,7 +14,7 @@ authRoute.get(
     (req, res) => res.redirect('/surveys')
 );
 
-apiRoute.get(
+authRoute.get(
     '/logout',
     (req, res) => {
         req.logOut();
