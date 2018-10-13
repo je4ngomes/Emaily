@@ -23,7 +23,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
 
-
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
@@ -34,9 +33,9 @@ if (process.env.NODE_ENV === 'production') {
     
     // Express will serve up the index.html file
     // If it doesn't recognize the route
-    app.get('*', (req, res) => {
+    app.get('*', (req, res) => 
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-    })
+    )
 }
 
 app.listen(
