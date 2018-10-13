@@ -27,16 +27,16 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
-if (process.env.NODE_ENV === 'production') {
+if (true){//process.env.NODE_ENV === 'production') {
     // Express will serve up production assets
     // like main.js file, or main.css file
-    app.use(express.static(path.join(__dirname, 'client/build')))
+    app.use('/static', express.static(path.join(__dirname, 'client/build')))
     
     // Express will serve up the index.html file
     // If it doesn't recognize the route
-    app.get('/casa', (req, res) => 
-        res.sendFile(path.join(__dirname, 'client/build/index.html'))
-    )
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    })
 }
 
 app.listen(

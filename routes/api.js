@@ -28,7 +28,6 @@ apiRoute.get(
     '/logout',
     (req, res) => {
         req.logOut();
-        console.log('aqui');
         res.redirect('/');
     }
 )
