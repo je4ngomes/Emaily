@@ -24,12 +24,4 @@ apiRoute.post('/stripe', requireLogin, (req, res) => {
         .catch(err => res.status(500).send({ user: req.user }));
 });
 
-apiRoute.get(
-    '/logout',
-    (req, res) => {
-        req.logOut();
-        res.redirect('/');
-    }
-)
-
 module.exports = apiRoute;

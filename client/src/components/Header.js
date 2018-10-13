@@ -19,7 +19,7 @@ class Header extends Component {
                 return [
                     <li key="0"><Payments /></li>,
                     <li key="1"><a style={{cursor: 'default'}} className='btn light-blue accent-3'>Credits {auth.user.credits}</a></li>,
-                    <li key="2"><a href='/api/logout' className='btn red lighten-1 waves-effect waves-light'>Log Out</a></li>
+                    <li key="2"><a href='/auth/logout' className='btn red lighten-1 waves-effect waves-light'>Log Out</a></li>
                 ];
         }
     }
