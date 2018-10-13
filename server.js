@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
+const sslRedirect = require('heroku-ssl-redirect');
 const path = require('path');
 const app = express();
 
@@ -21,7 +22,8 @@ app.use(cookieSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.json())
+app.use(express.json());
+app.use(sslRedirect());
 
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
