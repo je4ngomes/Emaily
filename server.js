@@ -1,7 +1,6 @@
 const express = require('express');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
-const sslRedirect = require('heroku-ssl-redirect');
 const path = require('path');
 const app = express();
 
@@ -23,22 +22,23 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
-app.use(sslRedirect());
+
 
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
-// if (process.env.NODE_ENV === 'production') {
-//     // Express will serve up production assets
-//     // like main.js file, or main.css file
-//     app.use(express.static(path.join(__dirname, 'client/build')))
-
-//     // Express will serve up the index.html file
-//     // If it doesn't recognize the route
-//     app.get('*', (req, res) => 
-//         res.sendFile(path.join(__dirname, 'client/build/index.html'))
-//     )
-// }
+if (process.env.NODE_ENV === 'production') {
+    // Express will serve up production assets
+    // like main.js file, or main.css file
+    app.use(express.static(path.join(__dirname, 'client/build')))
+    
+    // Express will serve up the index.html file
+    // If it doesn't recognize the route
+    app.get('*', (req, res) => {
+        console.log(req.url)
+        res.sendFile(path.join(__dirname, 'client/build/index.html'))
+    })
+}
 
 app.listen(
     process.env.PORT || 5000, 
