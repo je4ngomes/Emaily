@@ -1,0 +1,43 @@
+/* Landing Page component */
+.cover {
+    position: fixed;
+    background: center;
+    background-size: cover;
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+}
+
+.cover img {
+    width: 100%; height: 100%;
+}
+
+.navbar {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.brand-logo {
+    font-weight: bold;
+}
+
+.message-cover {
+    width: 35%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 5rem auto 0;
+    margin-right: 5px; margin-bottom: 10px;
+}
+
+/* End Landing page component */
+
+/* Header component */
+
+ul li a {
+    font-weight: bold;
+    font-size: 14pt;
+    margin-left: 5px !important;
+}
+
+/* End Header component */

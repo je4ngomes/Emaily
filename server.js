@@ -12,7 +12,7 @@ require('./db/db'); require('./models/User');
 // load passport configuration
 require('./services/passport');
 
-const { authRoutes } = require('./routes');
+const { authRoutes, apiRoutes } = require('./routes');
 
 app.use(cookieSession({
     name: '.',
@@ -21,8 +21,22 @@ app.use(cookieSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.json())
 
 app.use('/auth', authRoutes);
+app.use('/api', apiRoutes);
+
+if (process.env.NODE_ENV === 'production') {
+    // Express will serve up production assets
+    // like main.js file, or main.css file
+    app.use(express.static(path.join(__dirname, 'client/build')))
+
+    // Express will serve up the index.html file
+    // If it doesn't recognize the route
+    app.get('*', (req, res) => 
+        res.sendFile(path.join(__dirname, 'client/build/index.html'))
+    )
+}
 
 app.listen(
     process.env.PORT || 5000, 

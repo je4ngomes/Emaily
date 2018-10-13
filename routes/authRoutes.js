@@ -10,15 +10,8 @@ authRoute.get(
 
 authRoute.get(
     '/google/callback', 
-    passport.authenticate('google')
+    passport.authenticate('google'),
+    (req, res) => res.redirect('/surveys')
 );
-
-authRoute.get(
-    '/logout',
-    (req, res) => {
-        req.logOut();
-        res.send(req.user);
-    }
-)
 
 module.exports = authRoute;
