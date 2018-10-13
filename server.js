@@ -27,7 +27,7 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
-if (true){//process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
     // Express will serve up production assets
     // like main.js file, or main.css file
     app.use('/static', express.static(path.join(__dirname, 'client/build')))
