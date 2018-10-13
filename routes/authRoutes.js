@@ -2,7 +2,7 @@ const authRoute = require('express').Router();
 const passport = require('passport');
 
 authRoute.get(
-    '/google', 
+    '/google',
     passport.authenticate('google', {
         scope: ['profile', 'email']
     })
