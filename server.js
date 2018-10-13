@@ -34,10 +34,9 @@ if (process.env.NODE_ENV === 'production') {
     
     // Express will serve up the index.html file
     // If it doesn't recognize the route
-    app.get('*', (req, res) => {
-        console.log(req.url)
+    app.get('/casa', (req, res) => 
         res.sendFile(path.join(__dirname, 'client/build/index.html'))
-    })
+    )
 }
 
 app.listen(
