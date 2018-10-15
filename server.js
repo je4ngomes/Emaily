@@ -8,7 +8,9 @@ const app = express();
 process.env.NODE_ENV !== 'production' ?
     require('./config/env').config(path.join(__dirname, './config/dev.env')) : null;
 // create db connection and define models
-require('./db/db'); require('./models/User');
+require('./db/db'); 
+require('./models/User');
+require('./models/Survey');
 // load passport configuration
 require('./services/passport');
 

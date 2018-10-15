@@ -1,12 +1,58 @@
 const apiRoute = require('express').Router();
+const mongoose = require('mongoose');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const requireLogin = require('../middlewares/requireLogin');
+const requireCredits = require('../middlewares/requireCredits');
+const sendMail = require('../services/mailer');
+const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
+const { strToObj } = require('../helpers/helpers');
+
+const Survey = mongoose.model('survey');
 
 apiRoute.get('/current_user', (req, res) => res.json(req.user));
 
+apiRoute.get('/surveys/feedback', (req, res) => {
+    res.send('Thanks for voting!');
+});
+
+apiRoute.post(
+    '/surveys', 
+    [requireLogin, requireCredits()], 
+    (req, res) => {
+        const data = {
+            ...req.body,
+            recipients: strToObj(req.body.recipients)
+        };
+
+        const survey = new Survey({ 
+            ...data,
+            dataSent: Date.now(),
+            _user: req.user.id
+        });
+
+        sendMail(data, surveyTemplate(data))
+            .then(_ => {
+                // billing user credits
+                req.user.credits -= 1;
+
+                // saving survey and user changes
+                Promise.all([survey.save(), req.user.save()])
+                    .then(([_, user]) => res.json(user))
+                    .catch(err => {
+                        console.error(err);
+                        res.status(422).json({ error: 'Something went wrong. Please try again.' });
+                    });
+            })
+            .catch(err => {
+                console.error(err);
+                res.status(422).json({ error: 'Something went wrong. Please try again.' });
+            });
+    }
+);
+
 apiRoute.post('/stripe', requireLogin, (req, res) => {
-    const { id } = req.body;
+    const { user, body: { id } } = req;
     
     stripe
         .charges
@@ -17,8 +63,8 @@ apiRoute.post('/stripe', requireLogin, (req, res) => {
             description: '$5 for 5 survey credits'
         })
         .then(obj => {            
-            req.user.credits += 5;
-            req.user.save()
+            user.credits += 5;
+            user.save()
                 .then(user => res.json(user));
         })
         .catch(err => res.status(500).send({ user: req.user }));

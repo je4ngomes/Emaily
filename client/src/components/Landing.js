@@ -10,11 +10,15 @@ class Landing extends Component {
                 <section style={{backgroundImage: `url("${cover}")`}} className="cover">
                     <Header history={this.props.history} background="transparent" txtColor="blue"/> 
 
-                    <div className="message-cover">
-                        <h3 className="blue-text">Create and send Surveys,{" "}
-                            <span className="red-text">easy</span> and{" "}
-                            <span className="red-text">fast.</span>
-                        </h3>
+                    <div className="row">
+                        <div className="col offset-s1 offset-m8">
+                            <div className="message-cover">
+                                <h3 className="blue-text">Create and send Surveys,{" "}
+                                    <span className="red-text">easy</span> and{" "}
+                                    <span className="red-text">fast.</span>
+                                </h3>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>

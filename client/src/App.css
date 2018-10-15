@@ -22,10 +22,8 @@
 }
 
 .message-cover {
-    width: 35%;
     position: absolute;
     bottom: 0;
-    right: 0;
     margin: 5rem auto 0;
     margin-right: 5px; margin-bottom: 10px;
 }
