@@ -7,7 +7,7 @@ import 'materialize-css/dist/css/materialize.min.css';
 import Login from './Login';
 import Landing from './Landing';
 import Dashboard from './Dashboard';
-import SurveyNew from './SurveyNew';
+import SurveyNew from './survey/SurveyNew';
 import withAuthProvider from '../contexts/auth/withAuthProvider';
 import withAuthConsumer from '../contexts/auth/withAuthConsumer';
 import '../App.css'

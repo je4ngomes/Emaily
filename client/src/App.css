@@ -39,3 +39,22 @@ ul li a {
 }
 
 /* End Header component */
+
+.container {
+    width: 90% !important;
+}
+
+.input-field input:focus + label,
+.input-field textarea:focus + label {
+    color: #0b9eff !important;
+}
+ /* label underline focus color */
+.input-field input:focus,
+.input-field textarea:focus {
+    border-bottom: 1px solid #0b9eff !important;
+    box-shadow: 0 1px 0 0 #0b9eff !important
+}
+
+h5 {
+    font-weight: bold !important;
+}

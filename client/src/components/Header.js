@@ -28,7 +28,7 @@ class Header extends Component {
         const { background, txtColor='white', auth, depth = 0 } = this.props;
 
         return (
-            <nav className={`${background} z-depth-${depth}`}>
+            <nav style={{ marginBottom: 30 }} className={`${background} z-depth-${depth}`}>
                 <div className="nav-wrapper navbar">
                     <Link to={auth.user? '/surveys' : '/'} className={`brand-logo ${txtColor}-text`}>Emaily</Link>
                     <ul id="nav-mobile" className="right hide-on-med-and-down">
