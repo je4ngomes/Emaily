@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
+import { Animated } from 'react-animated-css';
 
 import SurveyForm from './SurveyForm';
 import Header from '../Header';
-import Title from '../Title';
 import SurveyPreview from './SurveyPreview';
-import EditButton from './EditButton';
 import SubmitButton from './SubmitButton';
-import ShowEmailList from './ShowEmailList';
-
 
 // Todo
 // validate form
@@ -20,11 +17,11 @@ class SurveyNew extends Component {
             surveyBody: '',
             recipientsList: '',
         },
-        preview: false,
+        inPreview: false,
         formDone: false
     }
 
-    previewHandler = () => this.setState({ preview: !this.state.preview })
+    previewHandler = () => this.setState({ inPreview: !this.state.inPreview })
 
     onFormChange = ({ target: { name, value } }) => {
         const { formData } = this.state;
@@ -40,38 +37,28 @@ class SurveyNew extends Component {
     isFormDone = () => Object.entries(this.state.formData).every(([_, value]) => value.trim() !== '')
     
     render() {
-        const { preview, formDone, formData } = this.state;
-        const notPreview = !preview;
+        const { inPreview, formDone, formData } = this.state;
 
         return (
             <div>
                 <Header background="blue" depth={1} />
 
                 <div className="container">
-                    <Title title={preview ? "New Survey - Preview" : "New Survey"} />
-
-                    {preview && <EditButton previewHandler={this.previewHandler} />}
-
-                    {preview ? 
+                    {inPreview ? 
                         <SurveyPreview 
                             {...this.props}
-                            onPreview={this.onPreview}
+                            previewHandler={this.previewHandler}
                             data={formData} /> :
                         <SurveyForm 
-                            data={formData} 
+                            data={formData}
                             onFormChange={this.onFormChange}/>}
-
-                    {notPreview && 
-                        <ShowEmailList 
-                            style={{ position: 'relative', top: -45 }}
-                            offset='offset-m1'
-                            emails={formData.recipientsList.split(',').map(x => x.trim())} />}
-                        
-                    {formDone && 
+                    
+                    <Animated animationIn='zoomIn' animationOut='zoomOut' isVisible={formDone}>
                         <SubmitButton 
-                            isInPreview={preview} 
-                            submitHandler={this.submitHandler} 
-                            showPreview={this.previewHandler} />}
+                            isInPreview={inPreview} 
+                            submitHandler={this.submitHandler}
+                            showPreview={this.previewHandler} />
+                    </Animated>
                 </div>
             </div>
         );
