@@ -1,8 +1,9 @@
 import React from 'react';
-import Spinner from '../media/Spinner.svg';
 
-const PreLoader = () => {
-    return (<img src={Spinner} alt=""></img>);
-};
+const PreLoader = ({ spinner, style, classNames }) => (
+    <div className='row'>
+        <div className={classNames} style={style}> <img src={spinner} alt=""></img> </div>
+    </div>
+);
 
 export default PreLoader;

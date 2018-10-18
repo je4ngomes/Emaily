@@ -10,7 +10,13 @@ const { strToObj } = require('../helpers/helpers');
 
 const Survey = mongoose.model('survey');
 
-apiRoute.get('/current_user', (req, res) => res.json(req.user));
+apiRoute.get('/current_user', (req, res) => {
+    res.send(
+        req.isAuthenticated()
+            ? { user: { credits: req.user.credits, OauthId: req.user.googleId }, auth: true }
+            : { auth: false }
+    );
+});
 
 apiRoute.get('/surveys/feedback', (req, res) => {
     res.send('Thanks for voting!');
@@ -24,6 +30,7 @@ apiRoute.post(
             ...req.body,
             recipients: strToObj(req.body.recipients)
         };
+        const { credits, googleId: OauthId } = req.user;
 
         const survey = new Survey({ 
             ...data,
@@ -38,21 +45,23 @@ apiRoute.post(
 
                 // saving survey and user changes
                 Promise.all([survey.save(), req.user.save()])
-                    .then(([_, user]) => res.json(user))
+                    .then(([_, user]) => 
+                        res.json({ user: { credits, OauthId }, auth: true }))
                     .catch(err => {
                         console.error(err);
-                        res.status(422).json({ error: 'Something went wrong. Please try again.' });
+                        res.status(422).json({ error: 'Something went wrong. Please try again.', auth: true });
                     });
             })
             .catch(err => {
                 console.error(err);
-                res.status(422).json({ error: 'Something went wrong. Please try again.' });
+                res.status(422).json({ error: 'Something went wrong. Please try again.', auth: true });
             });
     }
 );
 
 apiRoute.post('/stripe', requireLogin, (req, res) => {
     const { user, body: { id } } = req;
+    const { credits, googleId: OauthId } = req.user;
     
     stripe
         .charges
@@ -65,9 +74,9 @@ apiRoute.post('/stripe', requireLogin, (req, res) => {
         .then(obj => {            
             user.credits += 5;
             user.save()
-                .then(user => res.json(user));
+                .then(user => res.json({ user: { credits, OauthId }, auth: true }));
         })
-        .catch(err => res.status(500).send({ user: req.user }));
+        .catch(err => res.status(500).send({ auth: true }));
 });
 
 module.exports = apiRoute;

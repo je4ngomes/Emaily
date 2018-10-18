@@ -27,7 +27,7 @@ class SurveyNew extends Component {
         const { formData } = this.state;
 
         this.setState({ formData: { ...formData, [name]: value } });
-        this.setState({ formDone: this.isFormDone() ? true : false })
+        this.setState({ formDone: this.isFormDone() ? true : false });
     }
 
     submitHandler = () => {

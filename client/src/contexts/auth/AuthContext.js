@@ -7,10 +7,18 @@ const reducer = (state, action) => {
     switch (action.type) {
 
         case 'FETCH_USER': 
-            return { user: action.payload || false };
+            return {
+                user: { ...action.payload.user },
+                isAuthenticated: action.payload.auth,
+                loaded: true
+            };
 
         case 'LOG_OUT':
-            return { user: null };
+            return {
+                user: {},
+                isAuthenticated: false,
+                loaded: false
+            };
 
         default: return state;
     }
@@ -18,7 +26,12 @@ const reducer = (state, action) => {
 
 class AuthProviter extends Component {
     state = {
-        user: null
+        user: {
+            OauthID: null,
+            credits: null
+        },
+        isAuthenticated: false,
+        loaded: false
     }
 
     dispatch = (action) => this.setState(state => reducer(state, action))
@@ -38,12 +51,14 @@ class AuthProviter extends Component {
     }
 
     render() {
+        const auth = {
+            ...this.state,
+            fetchUser: this.fetchUser,
+            handleStripeToken: this.handleStripeToken
+        };
+
         return (
-            <Context.Provider value={{
-                                        user: this.state.user, 
-                                        fetchUser: this.fetchUser,
-                                        handleStripeToken: this.handleStripeToken
-                                    }}>
+            <Context.Provider value={auth}>
                 {this.props.children}
             </Context.Provider>
         );

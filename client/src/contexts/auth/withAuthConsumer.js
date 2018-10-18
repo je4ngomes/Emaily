@@ -6,10 +6,10 @@ const withAuthConsumer = (WrappedComponent) => {
         render() {
             return (
                 <Consumer>
-                    {auth => (
+                    {value => (
                         <WrappedComponent 
                             {...this.props} 
-                            auth={auth}/>
+                            auth={value}/>
                     )}
                 </Consumer>
             );
