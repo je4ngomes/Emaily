@@ -8,8 +8,8 @@ import withAuthConsumer from '../contexts/auth/withAuthConsumer';
 
 const OauthOption = ({ label, icon, background, url }) => (
     <div className="row">
-        <div style={{padding: 5}} className={"z-depth-1 waves-effect waves-light col s10 m8 offset-s1 offset-m2 " + background}>
-                <a href={url} className="btn__oauth center">
+        <div className="col s12 m8 offset-m2 ">
+                <a href={url} className={"z-depth-1 waves-effect waves-light btn__oauth center " + background}>
                 <i className={classNames('fab',
                                 { 'fa-google': icon === 'google', 'fa-facebook-f': icon === 'facebook' })}></i>
                     {label}

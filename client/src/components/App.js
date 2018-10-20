@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 
 import '../App.css';
@@ -20,8 +19,8 @@ const PrivateRoute = ({ component: Component, auth, ...rest }) => (
             auth.loaded 
                 ? auth.isAuthenticated ? (<Component {...props} />) : (<Redirect exact to="/login" />)
                 : (<PreLoader 
-                    classNames='col offset-s5 offset-m5' 
-                    style={{position: 'absolute', top: 250, left: 60}} 
+                    classNames='col offset-s2 offset-m5' 
+                    style={{position: 'absolute', top: 220, left: 60}} 
                     spinner={SpinnerLoadPage}/>)}>
     </Route>
 );
@@ -33,8 +32,8 @@ const PublicRoute = ({ component: Component, auth, ...rest }) => (
             auth.loaded 
                 ? (<Component {...props} />)
                 : (<PreLoader 
-                    classNames='col offset-s5 offset-m5' 
-                    style={{position: 'absolute', top: 250, left: 60}} 
+                    classNames='col offset-s2 offset-m5' 
+                    style={{position: 'absolute', top: 220, left: 60}} 
                     spinner={SpinnerLoadPage}/>)}>
     </Route>
 );

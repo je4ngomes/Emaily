@@ -7,8 +7,8 @@ class Landing extends Component {
     render() {
         return (
             <div>
+                <Header background="transparent" txtColor="blue"/> 
                 <section style={{backgroundImage: `url("${cover}")`}} className="cover">
-                    <Header history={this.props.history} background="transparent" txtColor="blue"/> 
 
                     <div className="row">
                         <div className="col offset-s1 offset-m8">
