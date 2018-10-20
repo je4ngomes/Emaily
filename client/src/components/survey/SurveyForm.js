@@ -12,7 +12,7 @@ const SurveyForm = ({ onFormChange, data, onBlur }) => {
 
             <Animated animationIn="fadeIn">
                 <div className="row">
-                    <form className="col m10 offset-m1">
+                    <form className="col s11 m10 offset-m1">
                         <div className="row">
                             <div className="input-field col s12 m6">
                                 <input onChange={onFormChange} onBlur={onBlur} placeholder="Title" name="surveyTitle" id="title" type="text" value={data.surveyTitle}/>

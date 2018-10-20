@@ -27,7 +27,7 @@ class Header extends Component {
                     <li key="1"><a style={{cursor: 'default'}} className='btn light-blue accent-3'>Credits {auth.user.credits}</a></li>,
                     <li key="2"><LogOut /></li>
                  ] 
-                : (<li><Link to='/login' className={`btn light-blue accent-3 white-text`}>Login</Link></li>) 
+                : (<li><Link to='/login' className={`btn waves-effect waves-light light-blue accent-3 white-text`}>Login</Link></li>) 
     }
 
     render() {
