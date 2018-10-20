@@ -17,7 +17,7 @@ const reducer = (state, action) => {
             return {
                 user: {},
                 isAuthenticated: false,
-                loaded: false
+                loaded: true
             };
 
         default: return state;
@@ -44,6 +44,11 @@ class AuthProviter extends Component {
             .then(this.dispatchAction);
     }
 
+    logOut = () => 
+        Axios
+            .get('/auth/logout')
+            .then(_ => this.dispatch({ type: 'LOG_OUT' }))
+
     handleStripeToken = (token) => {
         Axios
             .post('/api/stripe', token)
@@ -54,6 +59,7 @@ class AuthProviter extends Component {
         const auth = {
             ...this.state,
             fetchUser: this.fetchUser,
+            logOut: this.logOut,
             handleStripeToken: this.handleStripeToken
         };
 

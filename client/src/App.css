@@ -1,4 +1,8 @@
 /* Landing Page component */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .cover {
     position: fixed;
     background: center;
@@ -58,3 +62,21 @@ ul li a {
 h5 {
     font-weight: bold !important;
 }
+
+.btn__oauth {
+    color: #fff;
+    margin: 0 auto;
+    width: 100%; height: 100%;
+    display: block;
+    font-weight: normal;
+    text-decoration: none;
+    font-size: 14pt;
+}
+
+.center i {
+    margin-right: 10px;
+    color: #fff;
+    font-size: 16pt;
+}
+
+

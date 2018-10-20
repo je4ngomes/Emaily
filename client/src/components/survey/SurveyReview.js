@@ -9,7 +9,7 @@ import Title from '../Title';
 const SurveyPreview = ({ data, previewHandler }) => {
     return (
         <div>
-            <Title title="Preview">
+            <Title title="Review">
                 <EditButton previewHandler={previewHandler} />
             </Title>
 

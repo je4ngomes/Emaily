@@ -26,6 +26,19 @@ const PrivateRoute = ({ component: Component, auth, ...rest }) => (
     </Route>
 );
 
+const PublicRoute = ({ component: Component, auth, ...rest }) => (
+    <Route 
+        {...rest} 
+        render={props => 
+            auth.loaded 
+                ? (<Component {...props} />)
+                : (<PreLoader 
+                    classNames='col offset-s5 offset-m5' 
+                    style={{position: 'absolute', top: 250, left: 60}} 
+                    spinner={SpinnerLoadPage}/>)}>
+    </Route>
+);
+
 class App extends Component {
     
     componentDidMount() {
@@ -36,8 +49,8 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <Switch>
-                    <Route path="/" exact component={Landing}/>
-                    <Route path="/login" exact component={Login}/>
+                    <PublicRoute path="/" auth={this.props.auth} exact component={Landing}/>
+                    <PublicRoute path="/login" auth={this.props.auth} exact component={Login}/>
                     <PrivateRoute path="/surveys" auth={this.props.auth} exact component={Dashboard}/>
                     <PrivateRoute path="/surveys/new" auth={this.props.auth} exact component={SurveyNew}/>
                 </Switch>

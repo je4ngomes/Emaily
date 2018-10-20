@@ -9,7 +9,7 @@ class Dashboard extends Component {
     render() {
         return (
             <div>
-                <Header history={this.props.history} background="blue" depth={1} />
+                <Header background="blue" depth={1} />
                 
                 <Link style={{
                     position: 'absolute', 

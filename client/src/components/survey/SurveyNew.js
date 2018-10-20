@@ -3,7 +3,7 @@ import { Animated } from 'react-animated-css';
 
 import SurveyForm from './SurveyForm';
 import Header from '../Header';
-import SurveyPreview from './SurveyPreview';
+import SurveyReview from './SurveyReview';
 import SubmitButton from './SubmitButton';
 
 // Todo
@@ -45,7 +45,7 @@ class SurveyNew extends Component {
 
                 <div className="container">
                     {inPreview ? 
-                        <SurveyPreview 
+                        <SurveyReview 
                             {...this.props}
                             previewHandler={this.previewHandler}
                             data={formData} /> :
