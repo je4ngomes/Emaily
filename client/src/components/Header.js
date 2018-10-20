@@ -23,7 +23,7 @@ class Header extends Component {
 
         return auth.isAuthenticated 
                 ? [
-                    <li style={{marginLeft: 10}} key="0"><Payments /></li>,
+                    <li key="0" className="stripe__btn"><Payments /></li>,
                     <li key="1"><a style={{cursor: 'default'}} className='btn light-blue accent-3'>Credits {auth.user.credits}</a></li>,
                     <li key="2"><LogOut /></li>
                  ] 
@@ -31,12 +31,12 @@ class Header extends Component {
     }
 
     render() {
-        const { background, txtColor='white', auth, depth = 0 } = this.props;
+        const { background, txtColor='white', style, auth, depth = 0 } = this.props;
         const menu = this.loginStatus();
 
         return (
             <div>
-                <nav style={{ marginBottom: 30, position: 'absolute', zIndex:1 }} className={`${background} z-depth-${depth}`}>
+                <nav style={{ marginBottom: 30, ...style }} className={`${background} z-depth-${depth}`}>
                     <div className="nav-wrapper navbar">
                         <Link to={auth.isAuthenticated ? '/surveys' : '/'} className={`brand-logo ${txtColor}-text`}>Emaily</Link>
                         <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className={`material-icons ${txtColor}-text`}>menu</i></a>

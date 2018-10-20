@@ -77,3 +77,12 @@ h5 {
     color: #fff;
     font-size: 16pt;
 }
+
+.sidenav li a {
+    font-weight: bold;
+}
+
+.sidenav .stripe__btn button {
+    width: 92.5%; height: 45px;
+    margin-left: 5px;
+}

@@ -34,8 +34,8 @@ class Login extends Component {
                 <div className="container">
                     <Link to="/" className={"brand-logo white-text"}><h5>Emaily</h5></Link>
                 </div>
-                <div style={{position: "relative", top: 150}} className="row">
-                    <div style={{padding: 10}} className="col s10 offset-s1 m6 offset-m3 z-depth-3 grey darken-3">
+                <div style={{position: "relative", top: 120}} className="row">
+                    <div style={{padding: 10}} className="col s12 m6 offset-m3 z-depth-3 grey darken-3">
                         <h5 className="center-align white-text">Sign in with</h5>
 
                         <OauthOption url='/auth/google' label="Login with google" icon="google" background="red"/>

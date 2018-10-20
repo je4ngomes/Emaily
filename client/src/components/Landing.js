@@ -7,7 +7,7 @@ class Landing extends Component {
     render() {
         return (
             <div>
-                <Header background="transparent" txtColor="blue"/> 
+                <Header style={{position: 'absolute', zIndex: 1}} background="transparent" txtColor="blue"/> 
                 <section style={{backgroundImage: `url("${cover}")`}} className="cover">
 
                     <div className="row">
