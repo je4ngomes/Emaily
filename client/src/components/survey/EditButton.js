@@ -2,7 +2,7 @@ import React from 'react';
 
 const EditButton = ({ previewHandler }) => (
     <div className="row">
-        <div className="col offset-m11 offset-s10 right-align">
+        <div className="col offset-m11 offset-s9 right-align">
             <a style={{
                 position: 'absolute', 
                 top: 110,
