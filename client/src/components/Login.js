@@ -32,7 +32,7 @@ class Login extends Component {
         return (
             <div className="cover" style={{backgroundImage: `url("${loginCover}")`}}>
                 <div className="container">
-                    <Link to="/" className={"brand-logo white-text"}><h5>Emaily</h5></Link>
+                    <Link to="/" className="brand-logo white-text"><h5>Emaily</h5></Link>
                 </div>
                 <div style={{position: "relative", top: 120}} className="row">
                     <div style={{padding: 10}} className="col s12 m6 offset-m3 z-depth-3 grey darken-3">

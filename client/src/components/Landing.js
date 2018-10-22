@@ -4,6 +4,8 @@ import cover from '../media/cover.jpg';
 
 class Landing extends Component {
 
+    componentDidMount() { document.title = 'Emaily'; }
+
     render() {
         return (
             <div>

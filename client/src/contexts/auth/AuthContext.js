@@ -38,10 +38,12 @@ class AuthProviter extends Component {
 
     dispatchAction = ({ data }) => this.dispatch({ type: 'FETCH_USER', payload: data })
 
-    fetchUser = () => {
-        Axios
-            .get('/api/current_user')
-            .then(this.dispatchAction);
+    fetchUser = (data) => {
+        data 
+            ? this.dispatch({ type: 'FETCH_USER', payload: data })
+            : Axios
+                .get('/api/current_user')
+                .then(this.dispatchAction);
     }
 
     logOut = () => 

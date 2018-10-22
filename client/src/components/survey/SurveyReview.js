@@ -17,16 +17,16 @@ const SurveyPreview = ({ data, previewHandler }) => {
                 <div className="container">
                     <blockquote className="grey-text text-darken-2">
                         <h5>Survey Title</h5>
-                        <p>{data.surveyTitle}</p>
+                        <p>{data.title}</p>
 
                         <h5>Survey Subject</h5>
-                        <p>{data.surveySubject}</p>
+                        <p>{data.subject}</p>
 
                         <h5>Survey Body</h5>
-                        <p className="truncate">{data.surveyBody}</p>
+                        <p className="truncate">{data.body}</p>
 
                         <h5>Recipients List</h5>
-                        <ShowEmailList emails={data.recipientsList.split(',')}/>
+                        <ShowEmailList emails={data.recipients.split(',')}/>
                     </blockquote>
                 </div>
             </Animated>

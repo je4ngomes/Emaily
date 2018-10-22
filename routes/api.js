@@ -24,13 +24,13 @@ apiRoute.get('/surveys/feedback', (req, res) => {
 
 apiRoute.post(
     '/surveys', 
-    [requireLogin, requireCredits()], 
+    [requireLogin, requireCredits], 
     (req, res) => {
         const data = {
             ...req.body,
             recipients: strToObj(req.body.recipients)
         };
-        const { credits, googleId: OauthId } = req.user;
+        const { googleId: OauthId } = req.user;
 
         const survey = new Survey({ 
             ...data,
@@ -46,7 +46,7 @@ apiRoute.post(
                 // saving survey and user changes
                 Promise.all([survey.save(), req.user.save()])
                     .then(([_, user]) => 
-                        res.json({ user: { credits, OauthId }, auth: true }))
+                        res.json({ user: { credits: user.credits, OauthId }, auth: true }))
                     .catch(err => {
                         console.error(err);
                         res.status(422).json({ error: 'Something went wrong. Please try again.', auth: true });
@@ -61,7 +61,7 @@ apiRoute.post(
 
 apiRoute.post('/stripe', requireLogin, (req, res) => {
     const { user, body: { id } } = req;
-    const { credits, googleId: OauthId } = req.user;
+    const { googleId: OauthId } = req.user;
     
     stripe
         .charges
@@ -74,7 +74,7 @@ apiRoute.post('/stripe', requireLogin, (req, res) => {
         .then(obj => {            
             user.credits += 5;
             user.save()
-                .then(user => res.json({ user: { credits, OauthId }, auth: true }));
+                .then(user => res.json({ user: { credits: user.credits, OauthId }, auth: true }));
         })
         .catch(err => res.status(500).send({ auth: true }));
 });

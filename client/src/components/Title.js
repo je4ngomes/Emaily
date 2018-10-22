@@ -3,7 +3,7 @@ import { Animated } from 'react-animated-css';
 
 const Title = (props) => (
     <div style={{marginBottom: 20}}>
-        <Animated animationIn={"slideInRight"}>
+        <Animated animationIn={"fadeIn"}>
             <h5 className="grey-text text-darken-2" style={{fontWeight: 'bold'}}>{props.title}</h5>
         </Animated>
         <hr/>

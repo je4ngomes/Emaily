@@ -1,11 +1,12 @@
 import React from 'react';
+import classNames from 'classnames';
 import { Animated } from 'react-animated-css';
 
 import ShowEmailList from './ShowEmailList';
 import Title from '../Title';
 
 
-const SurveyForm = ({ onFormChange, data, onBlur }) => {
+const SurveyForm = ({ onFormChange, data, onBlur, errors }) => {
     return (
         <div>
             <Title title="New Survey" />
@@ -15,25 +16,29 @@ const SurveyForm = ({ onFormChange, data, onBlur }) => {
                     <form className="col s11 m10 offset-m1">
                         <div className="row">
                             <div className="input-field col s12 m6">
-                                <input onChange={onFormChange} onBlur={onBlur} placeholder="Title" name="surveyTitle" id="title" type="text" value={data.surveyTitle}/>
+                                <input className={classNames('validate', { 'invalid': errors.title.valid === false })} onChange={onFormChange} onBlur={onBlur} placeholder="Title" name="title" id="title" type="text" value={data.title}/>
                                 <label htmlFor="title">Survey Title</label>
+                                <span className="helper-text" data-error="Title is required"></span>
                             </div>
                             <div className="input-field col s12 m6">
-                                <input onChange={onFormChange} onBlur={onBlur} placeholder="Subject" id="subject" name="surveySubject" type="text" value={data.surveySubject}/>
+                                <input className={classNames('validate', { 'invalid': errors.subject.valid === false })} onChange={onFormChange} onBlur={onBlur} placeholder="Subject" id="subject" name="subject" type="text" value={data.subject}/>
                                 <label htmlFor="subject">Subject Line</label>
+                                <span className="helper-text" data-error="Subject is required"></span>                                
                             </div>
                         </div>
                         <div className="row">
                             <div className="input-field col s12">
-                                <textarea onChange={onFormChange} onBlur={onBlur} placeholder="Content..." name="surveyBody" id="textarea1" className="materialize-textarea" value={data.surveyBody}></textarea>
+                                <textarea className={classNames('materialize-textarea validate', { 'invalid': errors.body.valid === false })} required onChange={onFormChange} onBlur={onBlur} placeholder="Content..." name="body" id="textarea1" value={data.body}></textarea>
                                 <label htmlFor="textarea1">Email Body</label>
+                                <span className="helper-text" data-error="Body is required"></span>                                
                             </div>
                         </div>
 
                         <div className="row">
                             <div className="input-field col s12">
-                                <input onChange={onFormChange} onBlur={onBlur} placeholder="Recipients" name="recipientsList" id="recipients" type="text" value={data.recipientsList}/>
+                                <input className={classNames('validate', { 'invalid': errors.email.valid === false })} onChange={onFormChange} onBlur={onBlur} placeholder="Recipients" name="recipients" id="recipients" type="text" value={data.recipients}/>
                                 <label htmlFor="recipients">Recipients List</label>
+                                <span className="helper-text" data-error={`These emails are invalid: ${errors.email.data}`}></span>                                
                             </div>
                         </div>
                     </form>
@@ -43,7 +48,7 @@ const SurveyForm = ({ onFormChange, data, onBlur }) => {
             <ShowEmailList 
                 style={{ position: 'relative', top: -45 }}
                 offset='offset-m1'
-                emails={data.recipientsList.split(',').map(x => x.trim())} />
+                emails={data.recipients.split(',').map(x => x.trim())} />
         </div>
     )
 }
