@@ -16,10 +16,10 @@ import withAuthConsumer from '../../contexts/auth/withAuthConsumer';
 class SurveyNew extends Component {
     state = {
         formData: {
-            title: 'asdsadsd',
-            subject: 'dfsdfdf',
-            body: 'sdfdsf',
-            recipients: 'cyraxtsung@gmail.com'
+            title: '',
+            subject: '',
+            body: '',
+            recipients: ''
         },
         errors: {
             title: '',
