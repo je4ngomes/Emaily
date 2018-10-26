@@ -1,6 +1,5 @@
 import validator from 'validator';
 import * as R from 'ramda';
-import moment, { now } from 'moment'
 
 const validate = {
     email: value => R.compose(
