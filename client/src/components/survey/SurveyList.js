@@ -63,11 +63,11 @@ class SurveyList extends Component {
     render() {
         const { surveys } = this.state;
 
-        return surveys 
+        return !surveys 
                     ? <PreLoader 
                         spinner={SpinnerLoadPage} 
                         classNames='col offset-s2 offset-m5'/>
-                    : isEmpty(surveys) ? <h1>You do not have any surveys at moment.</h1> : this.renderCards(surveys);
+                    : isEmpty(surveys) ? <h4>You do not have any surveys at moment.</h4> : this.renderCards(surveys);
     }
 }
 
