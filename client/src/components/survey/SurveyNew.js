@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import * as R from 'ramda';
 import { Link } from 'react-router-dom';
 
 import SurveyForm from './SurveyForm';
@@ -41,7 +40,7 @@ class SurveyNew extends Component {
     }
 
     onBlur = ({ target: { name, value } }) => {
-        const type = name === 'recipientsList' ? 'email': name;
+        const type = name === 'recipients' ? 'email': name;
         this.setState({ errors: { ...this.state.errors, [type]: validate({ type, value }) } });
     }
 
@@ -56,7 +55,6 @@ class SurveyNew extends Component {
 
         Axios.post('/api/surveys', formData)
             .then(res => {
-                console.log(res);
                 fetchUser(res.data);
                 history.push('/surveys');
             })

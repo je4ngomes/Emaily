@@ -86,3 +86,19 @@ h5 {
     width: 92.5%; height: 45px;
     margin-left: 5px;
 }
+
+.card-title {
+    font-size: 12pt !important;
+}
+
+.card-title span {
+    font-size: 13pt !important;
+    color: #5f5f5f;
+    text-transform: uppercase; 
+    font-weight: bold !important;
+}
+
+.card-title .surveyDate {
+    font-size: 10pt !important;
+    color: rgb(170, 170, 170);
+}

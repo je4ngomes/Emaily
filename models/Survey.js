@@ -7,9 +7,9 @@ const surveySchema = mongoose.Schema({
     body: String,
     subject: String,
     recipients: [RecipientSchema],
-    positive: { type: Number, default: 0 },
-    negative: { type: Number, default: 0 },
-    DateSent: Date,
+    yes: { type: Number, default: 0 },
+    no: { type: Number, default: 0 },
+    dateSent: Date,
     lastResponded: Date,
     _user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });

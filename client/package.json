@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@nivo/pie": "^0.51.0",
     "axios": "^0.18.0",
     "materialize-css": "^1.0.0-rc.2",
     "ramda": "^0.25.0",
     "react": "^16.5.2",
     "react-animated-css": "^1.0.4",
+    "react-card-flip": "^0.3.0",
     "react-dom": "^16.5.2",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5",

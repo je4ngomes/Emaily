@@ -1,5 +1,7 @@
 const apiRoute = require('express').Router();
 const mongoose = require('mongoose');
+const Path = require('path-parser').default;
+const R = require('ramda');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const requireLogin = require('../middlewares/requireLogin');
@@ -18,8 +20,21 @@ apiRoute.get('/current_user', (req, res) => {
     );
 });
 
-apiRoute.get('/surveys/feedback', (req, res) => {
+apiRoute.get('/surveys', requireLogin, (req, res) => {
+    Survey.find({ _user: req.user.id })
+        .select({ recipients: false })
+        .sort({ _id: -1 })
+        .then(surveys => {
+            res.send(surveys);
+        })
+});
+
+apiRoute.get('/surveys/thanks', (req, res) => {
     res.send('Thanks for voting!');
+});
+
+apiRoute.get('/surveys/:surveyId/:choice', (req, res) => {
+    res.redirect('/api/surveys/thanks');
 });
 
 apiRoute.post(
@@ -34,11 +49,11 @@ apiRoute.post(
 
         const survey = new Survey({ 
             ...data,
-            dataSent: Date.now(),
+            dateSent: Date.now(),
             _user: req.user.id
         });
 
-        sendMail(data, surveyTemplate(data))
+        sendMail(data, surveyTemplate(survey))
             .then(_ => {
                 // billing user credits
                 req.user.credits -= 1;
@@ -58,6 +73,37 @@ apiRoute.post(
             });
     }
 );
+
+apiRoute.post('/surveys/webhooks', (req, res) => {
+    const path = Path.createPath('/api/surveys/:surveyId/:choice');
+    const events = R.compose(
+        R.uniq,
+        R.filter(
+            R.compose(
+                R.both(
+                    R.contains('surveyId'), 
+                    R.contains('choice')), 
+                R.keys
+        )),
+        R.map(([email, url]) => R.assoc('email', email, path.test(new URL(url).pathname))),
+        R.map(R.props(['email', 'url'])),
+        R.filter(
+            R.compose(
+                R.equals('click'), 
+                R.prop('event'))
+        )
+    )(req.body);
+    
+    events.forEach(({email, surveyId, choice}) => {
+        Survey.updateOne({ 
+            _id: surveyId, 
+            recipients: { $elemMatch: { email, responded: false } }
+            }, {
+                $inc: { [choice]: 1 },
+                $set: { 'recipients.$.responded': true, lastResponded: new Date() }
+            }).exec();
+    });
+});
 
 apiRoute.post('/stripe', requireLogin, (req, res) => {
     const { user, body: { id } } = req;
