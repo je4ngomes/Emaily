@@ -11,7 +11,7 @@ import Chart from './Chart';
 class SurveyList extends Component {
 
     state = {
-        surveys: [],
+        surveys: null,
         flipStatus: {}
     }
 
@@ -63,11 +63,11 @@ class SurveyList extends Component {
     render() {
         const { surveys } = this.state;
 
-        return isEmpty(surveys) 
+        return surveys 
                     ? <PreLoader 
                         spinner={SpinnerLoadPage} 
                         classNames='col offset-s2 offset-m5'/>
-                    : this.renderCards(surveys);
+                    : isEmpty(surveys) ? <h1>You do not have any surveys at moment.</h1> : this.renderCards(surveys);
     }
 }
 
