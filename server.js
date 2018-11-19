@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
+const enforce = require('express-sslify');
 const path = require('path');
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
+process.env.NODE_ENV === 'production' ? app.use(enforce.HTTPS()) : null;
 
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
