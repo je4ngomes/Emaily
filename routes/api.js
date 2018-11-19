@@ -101,7 +101,8 @@ apiRoute.post('/surveys/webhooks', (req, res) => {
             }, {
                 $inc: { [choice]: 1 },
                 $set: { 'recipients.$.responded': true, lastResponded: new Date() }
-            }).exec();
+            }).exec()
+            .then(x => console.log(x));
     });
 });
 
