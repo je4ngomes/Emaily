@@ -8,9 +8,21 @@ authRoute.get(
     })
 );
 
+
 authRoute.get(
     '/google/callback', 
     passport.authenticate('google'),
+    (req, res) => res.redirect('/surveys')
+);
+
+authRoute.get(
+    '/facebook',
+    passport.authenticate('facebook')
+);
+
+authRoute.get(
+    '/facebook/callback',
+    passport.authenticate('facebook', { failureRedirect: '/login' }),
     (req, res) => res.redirect('/surveys')
 );
 
